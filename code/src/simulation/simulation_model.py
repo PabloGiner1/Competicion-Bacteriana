@@ -3,10 +3,9 @@ import random
 #Simulación del modelo PDH, el funcionamiento es el siguiente: 
 #P: Nodo ocupado por la presa (Pseudomona aeruginosa)
 #D: Nodo ocupado por la depredadora (Vampirovibrio)
-#H: Nodo vacia
+#H: Nodo vacio
 #Las bacterias presas son depredadas por las depredadoras, un nodo P en contacto con un nodo D se convierte en D con tasa de depredación alpha. Las bacterias presa pueden ocupar un nodo hueco H con tasa de ocupación beta. Las bacterias depredadoras pueden morir con tasa de mortalidad mu, convirtiendo el nodo en H.
 #La red está definida por el parametro G, esta generada por la libreria networkx. A la hora de inicializar la red se asigna una proporcion de nodos como P, D y H, definidos por initial_proportions. En cada paso se actualizan los estados segun los pdh_parameters, que son alpha, beta y mu. La función devuelve un historial de los estados de cada nodo en cada paso de la simulacion.
-
 
 def simulate_pdh(G, pdh_parameters, initial_proportions, steps):
 

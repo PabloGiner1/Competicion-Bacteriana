@@ -1,5 +1,4 @@
 # Configuracion basica para la sinulacion.
-
 N_NODES = 400
 
 # Parámetros red
