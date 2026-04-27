@@ -12,7 +12,7 @@ def simulate_pdh(G, pdh_parameters, initial_proportions, steps):
 
     # Asigmoas variales iniciales
     p_proportion, d_proportion, h_proportion = initial_proportions
-    beta, alpha, mu = pdh_parameters
+    alpha, beta, mu = pdh_parameters
     
     state = {}
     # Establecer proporciones iniciales
@@ -59,26 +59,9 @@ def simulate_pdh(G, pdh_parameters, initial_proportions, steps):
 
     return history
 
-"""
-    Resuelve la dinámica microscópica de Markov del modelo PDH
-    sobre una red con matriz de adyacencia A.
 
-    Estados:
-        P -> presa
-        D -> depredador
-        H -> hueco
+#Este código simula cómo evolucionan tres tipos de nodos en una red (presas P, depredadores D y huecos H) usando probabilidades en lugar de estados fijos. A cada nodo no le asignamos un estado concreto, sino la probabilidad de estar en cada estado (p, d, h). En cada paso de tiempo, calculamos primero la probabilidad de que una presa sea atacada por algún vecino depredador (Pi_PD) y la probabilidad de que un hueco sea colonizado por alguna presa vecina (Pi_HP). Estas probabilidades se calculan teniendo en cuenta todos los vecinos del nodo mediante un producto (esto representa la probabilidad de que ninguno actúe y luego se resta a 1). Con estas probabilidades actualizamos las ecuaciones de Markov: las presas pueden sobrevivir o convertirse en depredadores, los depredadores pueden morir o generarse al comer presas, y los huecos pueden permanecer vacíos o llenarse con presas. Después normalizamos para asegurar que las probabilidades suman 1 (evitando errores numéricos). Finalmente, guardamos en cada paso el valor medio de presas, depredadores y huecos en toda la red para poder ver su evolución en el tiempo.
 
-    Ecuaciones:
-        Pi_PD = 1 - prod_j (1 - alpha * A_ij * d_j)
-        Pi_HP = 1 - prod_j (1 - beta  * A_ij * p_j)
-
-        p_i(t+1) = p_i(t) * (1 - Pi_PD) + h_i(t) * Pi_HP
-        d_i(t+1) = d_i(t) * (1 - mu)    + p_i(t) * Pi_PD
-        h_i(t+1) = h_i(t) * (1 - Pi_HP) + mu * d_i(t)
-    """
-"""
-Este código simula cómo evolucionan tres tipos de nodos en una red (presas P, depredadores D y huecos H) usando probabilidades en lugar de estados fijos. A cada nodo no le asignamos un estado concreto, sino la probabilidad de estar en cada estado (p, d, h). En cada paso de tiempo, calculamos primero la probabilidad de que una presa sea atacada por algún vecino depredador (Pi_PD) y la probabilidad de que un hueco sea colonizado por alguna presa vecina (Pi_HP). Estas probabilidades se calculan teniendo en cuenta todos los vecinos del nodo mediante un producto (esto representa la probabilidad de que ninguno actúe y luego se resta a 1). Con estas probabilidades actualizamos las ecuaciones de Markov: las presas pueden sobrevivir o convertirse en depredadores, los depredadores pueden morir o generarse al comer presas, y los huecos pueden permanecer vacíos o llenarse con presas. Después normalizamos para asegurar que las probabilidades suman 1 (evitando errores numéricos). Finalmente, guardamos en cada paso el valor medio de presas, depredadores y huecos en toda la red para poder ver su evolución en el tiempo.
-"""
 
 def markov_pdh_dynamics(A, beta, alpha, mu, P0, D0, H0, T):
 

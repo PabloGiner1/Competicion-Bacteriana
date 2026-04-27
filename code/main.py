@@ -63,9 +63,7 @@ if __name__ == "__main__":
     k_values = [2, 4, 6, 8, 10]
 
     # Condiciones iniciales de la dinámica de Markov
-    P0 = 0.20
-    D0 = 0.05
-    H0 = 0.75
+    P0, D0, H0 = initial_proportions
     T_MARKOV = 200
 
     for k_avg in k_values:
@@ -76,7 +74,7 @@ if __name__ == "__main__":
         # Ejecutar dinámica de Markov
         P_markov, D_markov, H_markov = markov_pdh_dynamics(
             A=A,
-            beta=BETHA,   # cambia a BETA si en tu config está escrito así
+            beta=BETHA,   
             alpha=ALPHA,
             mu=MU,
             P0=P0,
@@ -109,7 +107,7 @@ if __name__ == "__main__":
         generate_er_graph_func=generate_er_graph_from_k,
         n_nodes=N_NODES,
         k_values=k_values,
-        beta=BETHA,   # cambia a BETA si en tu config está escrito así
+        beta=BETHA,   
         alpha=ALPHA,
         mu=MU,
         P0=P0,
