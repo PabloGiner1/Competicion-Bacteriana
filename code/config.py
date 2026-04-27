@@ -8,8 +8,8 @@ WATTS_K = 6
 WATTS_P = 0.1
 
 # Parámetros PDH. La k_crit = mu / alpha
-ALPHA = 0.25 #Colonización (H -> P)
-BETHA = 0.2 #Depredación (P -> D) 
+ALPHA = 0.2 #Colonización (H -> P)
+BETHA = 0.4 #Depredación (P -> D) 
 MU = 0.2 #Muerte natural (D -> H)
 
 pdh_params = [ALPHA, BETHA, MU]

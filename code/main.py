@@ -25,11 +25,8 @@ def run_simulation(graph_type):
     
     return P_list, D_list, H_list
 
-
+#Genera una red Erdős-Rényi con grado medio aproximado <k>.
 def generate_er_graph_from_k(n_nodes, k_avg, seed=None):
-    """
-    Genera una red Erdős-Rényi con grado medio aproximado <k>.
-    """
     p = k_avg / (n_nodes - 1)
     G = nx.erdos_renyi_graph(n_nodes, p, seed=seed)
     A = nx.to_numpy_array(G, dtype=float)
@@ -129,5 +126,61 @@ if __name__ == "__main__":
     plt.title("Estado estacionario del modelo PDH en redes ER")
     plt.legend()
     plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+
+    # =========================================================
+    # 4) MAPA DE CALOR D∞ vs (alpha, <k>)
+    # =========================================================
+
+    k_values = np.linspace(1, 20, 25) #Esto funciona (k_inicial, k_final, n_puntos)
+    alpha_values = np.linspace(0.05, 0.9, 25)
+
+    # Ajuste de parámetros (zona interesante) 
+    BETA_HEAT = BETHA
+    MU_HEAT = MU
+
+    heatmap_D = np.zeros((len(alpha_values), len(k_values)))
+
+    for i, alpha in enumerate(alpha_values):
+        for j, k_avg in enumerate(k_values):
+
+            P_inf, D_inf, H_inf, _, _, _ = stationary_state_vs_degree(
+                generate_er_graph_func=generate_er_graph_from_k,
+                n_nodes=N_NODES,
+                k_values=[k_avg],
+                beta=BETA_HEAT,
+                alpha=alpha,
+                mu=MU_HEAT,
+                P0=P0,
+                D0=D0,
+                H0=H0,
+                T=T_MARKOV,
+                n_realizations=1,   #numero de redes erdos para el analisis
+                tail=20
+            )
+
+            heatmap_D[i, j] = D_inf[0]
+
+
+    # =========================================================
+    # VISUALIZACIÓN (MAPA NORMAL)
+    # =========================================================
+    plt.figure(figsize=(8,6))
+
+    im = plt.imshow(
+        heatmap_D,
+        origin='lower',
+        aspect='auto',
+        extent=[k_values[0], k_values[-1], alpha_values[0], alpha_values[-1]]
+    )
+
+    plt.colorbar(im, label="Fracción estacionaria de depredadores")
+
+    plt.xlabel("<k>")
+    plt.ylabel("alpha")
+    plt.title(f"Mapa de calor D∞ (β={BETA_HEAT}, μ={MU_HEAT})")
+
     plt.tight_layout()
     plt.show()
