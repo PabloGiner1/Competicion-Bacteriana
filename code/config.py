@@ -1,34 +1,87 @@
-# Configuracion basica para la sinulacion.
+"""
+Global configuration file for the PDH bacterial competition model.
+
+Convention:
+    P: prey bacteria
+    D: predator bacteria
+    H: empty site
+
+Model parameters:
+    alpha: predation probability, P + D -> 2D
+    beta: colonization probability, P + H -> 2P
+    mu: predator mortality probability, D -> H
+
+For the current convention, the theoretical threshold is:
+
+    k_c = mu / alpha
+"""
+
+# =========================================================
+# Simulation size
+# =========================================================
+
 N_NODES = 400
 STEPS = 150
 
-# Parámetros red
-ERDOS_P = 0.05 #Recordar que el grado medio es k = erdos_p*N_NODES, buscamos que sea un valor bajo para no estar en grado medio.
+
+# =========================================================
+# Network parameters
+# =========================================================
+
+ERDOS_P = 0.05
 BARABASI_M = 3
 WATTS_K = 6
 WATTS_P = 0.1
 
-# Parámetros PDH. La k_crit = mu / alpha
-ALPHA = 0.2 #Colonización (H -> P)
-BETHA = 0.4 #Depredación (P -> D) 
-MU = 0.2 #Muerte natural (D -> H)
+GRAPH_TYPE = "erdos"  # Options: "erdos", "barabasi", "watts"
 
-pdh_params = [ALPHA, BETHA, MU]
 
-#Establecer proporciones iniciales normalizadas
+# =========================================================
+# PDH model parameters
+# =========================================================
+
+ALPHA = 0.2   # Predation: P + D -> 2D
+BETA = 0.6    # Colonization: P + H -> 2P
+MU = 0.8      # Predator mortality: D -> H
+
+PDH_PARAMS = [ALPHA, BETA, MU]
+
+
+# =========================================================
+# Initial conditions
+# =========================================================
+
 P_PROPORTION = 0.2
 D_PROPORTION = 0.05
 H_PROPORTION = 0.75
 
-initial_proportions = [P_PROPORTION, D_PROPORTION, H_PROPORTION]
+INITIAL_PROPORTIONS = [P_PROPORTION, D_PROPORTION, H_PROPORTION]
 
-#Establecemos que simulaciones plotearemos
-RUN_ORIGINAL = False
-RUN_MARKOV_INDIVIDUAL = False
-RUN_MARKOV_COMBINED = False
-RUN_STATIONARY = False 
-RUN_HEATMAP = False
+
+# =========================================================
+# Execution switches
+# =========================================================
+
+RUN_ORIGINAL = True
+RUN_MARKOV_INDIVIDUAL = True
+RUN_MARKOV_COMBINED = True
+RUN_STATIONARY = True
+RUN_STATIONARY_PARAMETER_VARIATION = True
+RUN_HEATMAP = True
 RUN_ANIMATION = True
 
-# Tipo de grafo a simular
-graph_type = "erdos"  # "erdos", "barabasi", "watts"
+
+# =========================================================
+# Random seed configuration
+# =========================================================
+
+USE_FIXED_SEED = False
+FIXED_SEED = 42
+
+
+# =========================================================
+# Output configuration
+# =========================================================
+
+SAVE_FIGURES = True
+OUTPUT_DIR = "outputs"
