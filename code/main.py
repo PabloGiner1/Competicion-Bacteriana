@@ -12,6 +12,7 @@ from config import (
     RUN_STATIONARY_PARAMETER_VARIATION,
     RUN_HEATMAP,
     RUN_ANIMATION,
+    RUN_INNOVATIONS
 )
 
 from src.utils.helpers import set_global_seed
@@ -24,6 +25,8 @@ from src.visualization.plots import (
     plot_heatmap,
     animate_pdh_simulation,
 )
+
+from src.innovations.innovations import run_innovation_analysis
 
 
 def main():
@@ -63,6 +66,10 @@ def main():
     if RUN_ANIMATION:
         print("Running animation...")
         animate_pdh_simulation()
+    
+    if RUN_INNOVATIONS:
+        print("Running innovation analysis...")
+        run_innovation_analysis()
 
 
 if __name__ == "__main__":
