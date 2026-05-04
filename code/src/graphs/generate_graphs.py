@@ -12,6 +12,17 @@ from config import (
     WATTS_K,
     WATTS_P,
 )
+from src.simulation.simulation_model import *
+from src.utils.helpers import *
+from src.utils.metrics import *
+from config import *
+from src.visualization.plots import *
+
+import src.graphs.generate_graphs
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import networkx as nx
+import numpy as np
 
 
 def generate_graph(graph_type):
@@ -67,3 +78,26 @@ def generate_er_graph_from_k(n_nodes, k_avg):
     adjacency_matrix = nx.to_numpy_array(graph, dtype=float)
 
     return graph, adjacency_matrix
+
+
+def generate_graph_combined(graph_type, k_avg):
+    
+    if graph_type == "erdos":
+        G, A = generate_er_graph_from_k(N_NODES, k_avg)
+
+    elif graph_type == "barabasi":
+        if k_avg < 2:
+            k_avg = 2
+        BARABASI_M = k_avg // 2  # Ajustar m para obtener el grado medio deseado
+        G = nx.barabasi_albert_graph(N_NODES, int(BARABASI_M))
+        A = nx.to_numpy_array(G, dtype=float)
+    
+    elif graph_type == "watts":
+        k_avg = int(k_avg)  # Asegurarse de que k_avg sea un entero
+        G = nx.watts_strogatz_graph(N_NODES, k_avg, WATTS_P)
+        A = nx.to_numpy_array(G, dtype=float)
+    
+    else:
+        raise ValueError("Tipo de grafo no válido")
+    
+    return G, A

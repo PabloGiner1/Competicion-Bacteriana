@@ -15,6 +15,9 @@ Processes:
 import random
 import numpy as np
 
+from config import *
+import src.graphs.generate_graphs
+
 
 def simulate_pdh(graph, pdh_parameters, initial_proportions, steps):
     """
@@ -191,7 +194,7 @@ def stationary_state_vs_degree(
         H_inf_runs = []
 
         for _ in range(n_realizations):
-            _, adjacency_matrix = generate_er_graph_func(n_nodes, k_avg)
+            _, adjacency_matrix = src.graphs.generate_graphs.generate_graph_combined(GRAPH_TYPE, k_avg)
 
             P, D, H = markov_pdh_dynamics(
                 adjacency_matrix=adjacency_matrix,

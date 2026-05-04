@@ -29,6 +29,7 @@ from src.simulation.simulation_model import (
 from src.graphs.generate_graphs import (
     generate_graph,
     generate_er_graph_from_k,
+    generate_graph_combined,
 )
 
 from src.utils.helpers import (
@@ -112,7 +113,7 @@ def plot_markov_individual():
     T_markov = 200
 
     for k_avg in k_values:
-        _, adjacency_matrix = generate_er_graph_from_k(N_NODES, k_avg)
+        _, adjacency_matrix = generate_graph_combined(GRAPH_TYPE, k_avg)
 
         P_markov, D_markov, H_markov = markov_pdh_dynamics(
             adjacency_matrix=adjacency_matrix,
@@ -162,7 +163,7 @@ def plot_markov_combined():
     results_H = {}
 
     for k_avg in k_values:
-        _, adjacency_matrix = generate_er_graph_from_k(N_NODES, k_avg)
+        _, adjacency_matrix = generate_graph_combined(GRAPH_TYPE, k_avg)
 
         P_markov, D_markov, H_markov = markov_pdh_dynamics(
             adjacency_matrix=adjacency_matrix,
@@ -224,7 +225,7 @@ def plot_stationary_state():
     tail = 30
 
     P_inf, D_inf, H_inf, P_std, D_std, H_std = stationary_state_vs_degree(
-        generate_er_graph_func=generate_er_graph_from_k,
+        generate_er_graph_func= generate_graph(GRAPH_TYPE),
         n_nodes=N_NODES,
         k_values=k_values,
         beta=BETA,
@@ -233,7 +234,7 @@ def plot_stationary_state():
         P0=P0,
         D0=D0,
         H0=H0,
-        T=T_markov,
+        T=T_markov, 
         n_realizations=n_realizations,
         tail=tail,
     )
@@ -506,8 +507,8 @@ def plot_heatmap():
     Plot a heatmap of stationary predator density in the (k, mu) plane.
     """
 
-    k_values = np.linspace(1, 20, 25)
-    mu_values = np.linspace(0.05, 0.95, 25)
+    k_values = np.linspace(1, 20, 10)
+    mu_values = np.linspace(0.05, 0.95, 10)
 
     P0, D0, H0 = INITIAL_PROPORTIONS
     T_markov = 200
@@ -518,7 +519,7 @@ def plot_heatmap():
         for j, k_avg in enumerate(k_values):
 
             _, D_inf, _, _, _, _ = stationary_state_vs_degree(
-                generate_er_graph_func=generate_er_graph_from_k,
+                generate_er_graph_func=generate_graph_combined(GRAPH_TYPE, k_avg),
                 n_nodes=N_NODES,
                 k_values=[k_avg],
                 beta=BETA,
@@ -586,7 +587,7 @@ def animate_pdh_simulation():
     k_vis = 4
     steps_vis = 100
 
-    graph, _ = generate_er_graph_from_k(n_vis, k_vis)
+    graph, _ = generate_graph_combined(GRAPH_TYPE, k_vis)
 
     history = simulate_pdh(
         graph=graph,
@@ -636,7 +637,7 @@ def animate_pdh_simulation():
         )
 
         ax_network.set_title(
-            rf"ER network with $\langle k \rangle={k_vis}$ | Step {frame}"
+            rf"ER network with $\langle k \rangle={k_vis}$ | Step {frame} | {GRAPH_TYPE}"
         )
 
         ax_curves.plot(P_values, label="Prey")

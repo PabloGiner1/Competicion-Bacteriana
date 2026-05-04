@@ -33,7 +33,7 @@ BARABASI_M = 3
 WATTS_K = 6
 WATTS_P = 0.1
 
-GRAPH_TYPE = "erdos"  # Options: "erdos", "barabasi", "watts"
+GRAPH_TYPE = "watts"  # Options: "erdos", "barabasi", "watts"
 
 
 # =========================================================
@@ -62,11 +62,11 @@ INITIAL_PROPORTIONS = [P_PROPORTION, D_PROPORTION, H_PROPORTION]
 # Execution switches
 # =========================================================
 
-RUN_ORIGINAL = True
+RUN_ORIGINAL = False
 RUN_MARKOV_INDIVIDUAL = True
 RUN_MARKOV_COMBINED = True
 RUN_STATIONARY = True
-RUN_STATIONARY_PARAMETER_VARIATION = True
+RUN_STATIONARY_PARAMETER_VARIATION = False
 RUN_HEATMAP = True
 RUN_ANIMATION = True
 
