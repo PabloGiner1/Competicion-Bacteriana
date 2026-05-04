@@ -101,3 +101,26 @@ def number_of_links(graph):
     """
 
     return graph.number_of_edges()
+
+def degree_heterogeneity_factor(graph):
+    """
+    Compute the structural heterogeneity factor of a network.
+
+    The quantity
+
+        kappa = <k^2> / <k>
+
+    is commonly used to characterize degree heterogeneity. Networks with hubs,
+    such as Barabási-Albert networks, typically have larger values of kappa
+    than homogeneous Erdős-Rényi networks with similar average degree.
+    """
+
+    degrees = np.array([degree for _, degree in graph.degree()], dtype=float)
+
+    mean_k = np.mean(degrees)
+    mean_k2 = np.mean(degrees ** 2)
+
+    if mean_k == 0:
+        return 0.0
+
+    return mean_k2 / mean_k

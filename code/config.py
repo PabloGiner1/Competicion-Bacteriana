@@ -66,7 +66,11 @@ RUN_ORIGINAL = False
 RUN_MARKOV_INDIVIDUAL = False
 RUN_MARKOV_COMBINED = False
 RUN_STATIONARY = False
+<<<<<<< HEAD
 RUN_STATIONARY_PARAMETER_VARIATION = True
+=======
+RUN_STATIONARY_PARAMETER_VARIATION = False
+>>>>>>> pablo-innovations
 RUN_HEATMAP = False
 RUN_ANIMATION = False
 
@@ -85,3 +89,31 @@ FIXED_SEED = 42
 
 SAVE_FIGURES = True
 OUTPUT_DIR = "outputs"
+
+# =========================================================
+# Innovation module switches
+# =========================================================
+
+RUN_INNOVATIONS = True
+
+RUN_HETEROGENEOUS_PARAMETERS = False
+RUN_MOBILITY = False
+RUN_DYNAMIC_NETWORK = False
+RUN_SCALE_FREE_COMPARISON = True
+
+
+# =========================================================
+# Innovation parameters
+# =========================================================
+
+HETEROGENEITY_STRENGTH = 0.5
+
+MOBILITY_RATES = [0.0, 0.01, 0.1 ,0.5, 1.0]
+
+REWIRING_RATES = [0.0, 0.01, 0.15, 0.5, 1.0]
+
+INNOVATION_K_VALUES = [2, 3, 4, 5, 6, 8, 10]
+
+INNOVATION_T_MARKOV = 250
+INNOVATION_N_REALIZATIONS = 4
+INNOVATION_TAIL = 30

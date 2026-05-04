@@ -507,8 +507,13 @@ def plot_heatmap():
     Plot a heatmap of stationary predator density in the (k, mu) plane.
     """
 
+<<<<<<< HEAD
     k_values = np.linspace(1, 20, 10)
     mu_values = np.linspace(0.05, 0.95, 10)
+=======
+    k_values = np.linspace(1, 20, 100)
+    mu_values = np.linspace(0.05, 0.95, 100)
+>>>>>>> pablo-innovations
 
     P0, D0, H0 = INITIAL_PROPORTIONS
     T_markov = 200
