@@ -41,7 +41,7 @@ def generate_graph(graph_type):
     """
 
     if graph_type == "erdos":
-        return nx.erdos_renyi_graph(N_NODES, ERDOS_P)
+        return generate_er_graph_from_k(N_NODES, ERDOS_P)
 
     if graph_type == "barabasi":
         return nx.barabasi_albert_graph(N_NODES, BARABASI_M)

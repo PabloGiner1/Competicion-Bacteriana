@@ -330,7 +330,7 @@ def _plot_mu_variation(k_values, P0, D0, H0, T_markov, n_realizations, tail):
 
     for mu in mu_values:
         _, D_inf, _, _, D_std, _ = stationary_state_vs_degree(
-            generate_er_graph_func=generate_er_graph_from_k,
+            generate_er_graph_func=generate_graph(GRAPH_TYPE),
             n_nodes=N_NODES,
             k_values=k_values,
             beta=BETA,
@@ -390,7 +390,7 @@ def _plot_beta_variation(k_values, P0, D0, H0, T_markov, n_realizations, tail):
 
     for beta in beta_values:
         _, D_inf, _, _, D_std, _ = stationary_state_vs_degree(
-            generate_er_graph_func=generate_er_graph_from_k,
+            generate_er_graph_func=generate_graph(GRAPH_TYPE),
             n_nodes=N_NODES,
             k_values=k_values,
             beta=beta,
@@ -449,7 +449,7 @@ def _plot_alpha_variation(k_values, P0, D0, H0, T_markov, n_realizations, tail):
 
     for alpha in alpha_values:
         _, D_inf, _, _, D_std, _ = stationary_state_vs_degree(
-            generate_er_graph_func=generate_er_graph_from_k,
+            generate_er_graph_func=generate_graph(GRAPH_TYPE),
             n_nodes=N_NODES,
             k_values=k_values,
             beta=BETA,
